@@ -5,6 +5,7 @@ const PORT = process.env.PORT || 5000
 const app = express();
 
 
+
 var mysql = require('mysql');
 
 
@@ -19,15 +20,18 @@ app.get("/users", function (request, response) {
     
     con.connect(function(err) {
       if (err) throw err;
+
       con.query("SELECT * FROM users", function (err, result, fields) {
         if (err) throw err;
         console.log(result);
+        response.send(result)
       });
     });
-    
-    response.send("<h1>Users<h1>")
 
-response.end();
+    //response.send("<h1>"+result+"<h1>")
+    
+  
+//response.end();
 });
 
 app.get("/orders", function (request, response) {
