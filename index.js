@@ -16,17 +16,22 @@ var con = mysql.createConnection({
     database: process.env.DB_DBNAME
 });
 
+con.connect(function(err) {
+  if (err) throw err;
+});
+
 app.get("/users", function (request, response) {
     
-    con.connect(function(err) {
-      if (err) throw err;
+   
 
       con.query("SELECT * FROM users", function (err, result, fields) {
         if (err) throw err;
         console.log(result);
         response.send(result)
       });
-    });
+
+     //con.end;
+    
 
     //response.send("<h1>"+result+"<h1>")
     
