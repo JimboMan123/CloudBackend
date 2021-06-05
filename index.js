@@ -4,8 +4,9 @@ const path = require('path')
 const PORT = process.env.PORT || 5000
 const app = express();
 
-/*
+
 var mysql = require('mysql');
+
 
 var con = mysql.createConnection({
     host: process.env.DB_HOST,
@@ -14,23 +15,18 @@ var con = mysql.createConnection({
     database: process.env.DB_DBNAME
 });
 
-
-
-con.connect(function(err) {
-  if (err) throw err;
-  con.query("SELECT * FROM users", function (err, result, fields) {
-    if (err) throw err;
-    console.log(result);
-  });
-});
-*/
-
-
-
-
 app.get("/users", function (request, response) {
-    response.send("<h1>Users<h1>")
     
+    con.connect(function(err) {
+      if (err) throw err;
+      con.query("SELECT * FROM users", function (err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+      });
+    });
+    
+    response.send("<h1>Users<h1>")
+
 response.end();
 });
 
