@@ -4,6 +4,7 @@ const path = require('path')
 const PORT = process.env.PORT || 5000
 const app = express();
 
+/*
 var mysql = require('mysql');
 
 var con = mysql.createConnection({
@@ -22,6 +23,7 @@ con.connect(function(err) {
     console.log(result);
   });
 });
+*/
 
 
 
