@@ -36,6 +36,8 @@ app.get("/users", function (request, response) {
 //response.end();
 });
 
+
+
 app.get("/orders", function (request, response) {
     
     con.query("SELECT * FROM orders ", function (err, result, fields) {
@@ -47,6 +49,7 @@ app.get("/orders", function (request, response) {
 
 
 });
+*/
 
 
 
@@ -61,7 +64,7 @@ app.get("/orders", function (request, response) {
 
 
 });
-*/
+
 
 app.post("/ordersTest", function (request, response) {
 
