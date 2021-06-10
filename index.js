@@ -79,6 +79,11 @@ app.post("/ordersTest", function (request, response) {
       console.log(user_id);
       console.log(seats);
 
+      var result = 'timestamp: '+ timestamp+' booked_date: '+booked_date+' movie_id: '+movie_id
+      +' user_id: '+user_id+' seats: '+JSON.stringify(seats); 
+
+      response.send(result);
+
       response.end();
 
     });
