@@ -64,6 +64,36 @@ app.get("/orders", function (request, response) {
 
 
 });
+/*
+app.get("/seats", function (request, response) {
+
+   
+    con.query("SELECT * FROM seats",  function (err, result, fields) {
+        if (err) throw err;
+        
+        console.log(result);
+        response.send(result)
+      });
+
+
+});
+*/
+
+app.get("/occupiedSeats", function (request, response) {
+
+    var movie_id = request.query.movie_id;
+    var booked_date = request.query.booked_date;
+    
+    con.query("SELECT seat_number FROM seats INNER JOIN orders ON orders.movie_id = ? AND orders.booked_date = ? AND orders.order_id = seats.order_id;",[movie_id, booked_date],  function (err, result, fields) {
+        if (err) throw err;
+        console.log("req: "+movie_id);
+        console.log("req: "+booked_date);
+        console.log(result);
+        response.send(result)
+      });
+
+
+});
 
 
 app.post("/ordersTest", function (request, response) {
