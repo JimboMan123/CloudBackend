@@ -79,6 +79,26 @@ app.get("/seats", function (request, response) {
 });
 */
 
+app.get("/login", function (request, response) {
+
+    var user_name = request.query.username;
+    var password = request.query.password;
+    
+    con.query("SELECT username FROM users where username= ? AND password = ?",[user_name, password],  function (err, result, fields) {
+        if (err) throw err;
+        console.log("req: "+user_name);
+        console.log("req: "+password);
+        if(result.length==0){
+            response.status(404).send({ error: "Bad username/password combination" });
+        } else response.status(200).send({ sucess: "Login sucessful" });
+
+        console.log(result);
+        
+      });
+
+
+});
+
 app.get("/occupiedSeats", function (request, response) {
 
     var movie_id = request.query.movie_id;
