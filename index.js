@@ -4,7 +4,7 @@ const path = require('path')
 const SERVER_PORT = process.env.PORT || 5000
 const app = express();
 
-var bodyParser = require('body-parser');
+//var bodyParser = require('body-parser');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -84,13 +84,13 @@ app.get("/login", function (request, response) {
     var user_name = request.query.username;
     var password = request.query.password;
     
-    con.query("SELECT username FROM users where username= ? AND password = ?",[user_name, password],  function (err, result, fields) {
+    con.query("SELECT user_id, username  FROM users where username= ? AND password = ?",[user_name, password],  function (err, result, fields) {
         if (err) throw err;
         console.log("req: "+user_name);
         console.log("req: "+password);
         if(result.length==0){
             response.status(404).send({ error: "Bad username/password combination" });
-        } else response.status(200).send({ sucess: "Login sucessful" });
+        } else response.status(200).send({ "username": user_name, "user_id":result[0].user_id });
 
         console.log(result);
         
@@ -139,6 +139,19 @@ app.post("/ordersTest", function (request, response) {
 
       response.end();
 
+    });
+
+    app.get("/movies", function (request, response) {
+
+        
+        con.query("SELECT * FROM movies",  function (err, result, fields) {
+            if (err) throw err;
+            
+            console.log(result);
+            response.send(result)
+          });
+    
+    
     });
 
     /*
