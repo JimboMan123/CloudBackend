@@ -64,6 +64,21 @@ app.get("/orders", function (request, response) {
 
 
 });
+
+app.get("/getOrder", function (request, response) {
+    
+    con.query("select  o.order_id \"Order ID\" , o.booked_date \"Date\", s.seat_number \"Seats\", " +
+    "m.title \"Title\" from orders o, seats s, movies m  where o.order_id = s.order_id AND" +
+     " o.movie_id = m.movie_id AND o.user_id = ?"
+    , [request.query.user_id], function (err, result, fields) {
+        if (err) throw err;
+        console.log("req: "+request.query.user_id);
+        console.log(result);
+        response.send(result)
+      });
+
+});
+
 /*
 app.get("/seats", function (request, response) {
 
