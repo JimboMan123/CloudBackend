@@ -156,10 +156,10 @@ app.post("/ordersTest", function (request, response) {
 
     });
 
-    app.get("/movies", function (request, response) {
+    app.get("/movie", function (request, response) {
 
         
-        con.query("SELECT * FROM movies",  function (err, result, fields) {
+        con.query("SELECT * FROM movies WHERE movies.movie_id= ?", [request.query.movie_id],  function (err, result, fields) {
             if (err) throw err;
             
             console.log(result);
