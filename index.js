@@ -131,9 +131,9 @@ app.get("/occupiedSeats", function (request, response) {
 });
 
 
-app.post("/ordersTest", function (request, response) {
+app.post("/orders", function (request, response) {
 
-    console.log("Post request recieved to /ordersTest")
+    console.log("Post request recieved to /orders")
     var timestamp = request.body.timestamp;
     var booked_date = request.body.booked_date;
     var movie_id = request.body.movie_id;
@@ -147,11 +147,10 @@ app.post("/ordersTest", function (request, response) {
       console.log(user_id);
       console.log(seats);
       console.log("seats.length: "+seats.length);
-      console.log("poooop: "+seats.seat1);
-      console.log("poooop2: "+seats.seat2);
+      
 
-      var result = 'timestamp: '+ timestamp+' booked_date: '+booked_date+' movie_id: '+movie_id
-      +' user_id: '+user_id+' seats: '+JSON.stringify(seats); 
+      //var result = 'timestamp: '+ timestamp+' booked_date: '+booked_date+' movie_id: '+movie_id
+      //+' user_id: '+user_id+' seats: '+JSON.stringify(seats); 
 
       
 
@@ -175,11 +174,8 @@ app.post("/ordersTest", function (request, response) {
         console.log("the insert id is: "+ result.insertId);
             
     });
-    
-
 
         }
-
 
         response.send(result)
       });
@@ -206,7 +202,7 @@ app.post("/ordersTest", function (request, response) {
     });
 
     
-
+/*
 app.post("/orders", function (request, response) {
 
     console.log("Post request recieved to /orders")
