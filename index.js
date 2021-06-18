@@ -79,7 +79,7 @@ app.get("/getOrder", function (request, response) {
 
 });
 
-/*
+
 app.get("/seats", function (request, response) {
 
    
@@ -92,7 +92,7 @@ app.get("/seats", function (request, response) {
 
 
 });
-*/
+
 
 app.get("/login", function (request, response) {
 
@@ -146,13 +146,49 @@ app.post("/ordersTest", function (request, response) {
       console.log(movie_id);
       console.log(user_id);
       console.log(seats);
+      console.log("seats.length: "+seats.length);
+      console.log("poooop: "+seats.seat1);
+      console.log("poooop2: "+seats.seat2);
 
       var result = 'timestamp: '+ timestamp+' booked_date: '+booked_date+' movie_id: '+movie_id
       +' user_id: '+user_id+' seats: '+JSON.stringify(seats); 
 
-      response.send(result);
+      
 
-      response.end();
+    con.query("insert into orders(timestamp, booked_date, movie_id, user_id) values (?, ?, ?, ?)",
+    [timestamp, booked_date, movie_id,user_id], 
+    function (err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+        console.log("the insert id is: "+ result.insertId);
+        var orderID = result.insertId;
+
+        for(var i = 0; i < seats.length; i++) {
+            var obj = seats[i];
+            console.log("obj.seat: "+obj.seat);
+
+    con.query("insert into seats(seat_number, order_id) values (?, ?)",
+    [obj.seat, orderID], 
+    function (err, result, fields) {
+        if (err) throw err;
+        console.log(result);
+        console.log("the insert id is: "+ result.insertId);
+            
+    });
+    
+
+
+        }
+
+
+        response.send(result)
+      });
+
+     
+
+//      response.send(result);
+
+  //    response.end();
 
     });
 
