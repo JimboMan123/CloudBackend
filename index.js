@@ -19,37 +19,7 @@ var con = mysql.createPool({
     database: process.env.DB_DBNAME
 });
 
-/*
 
-app.get("/users", function (request, response) {
-   
-      con.query("SELECT * FROM users", function (err, result, fields) {
-        if (err) throw err;
-        console.log(result);
-        response.send(result)
-      });
-
-     //con.end;
-    //response.send("<h1>"+result+"<h1>")
-
-  
-//response.end();
-});
-
-
-
-app.get("/orders", function (request, response) {
-    
-    con.query("SELECT * FROM orders ", function (err, result, fields) {
-        if (err) throw err;
-        
-        console.log(result);
-        response.send(result)
-      });
-
-
-});
-*/
 
 
 
@@ -101,8 +71,7 @@ app.get("/login", function (request, response) {
     
     con.query("SELECT user_id, username  FROM users where username= ? AND password = ?",[user_name, password],  function (err, result, fields) {
         if (err) throw err;
-        console.log("req: "+user_name);
-        console.log("req: "+password);
+        
         if(result.length==0){
             response.status(404).send({ error: "Bad username/password combination" });
         } else response.status(200).send({ "username": user_name, "user_id":result[0].user_id });
@@ -141,14 +110,6 @@ app.post("/orders", function (request, response) {
     var seats = request.body.seats;
 
 
-      console.log(timestamp);
-      console.log(booked_date);
-      console.log(movie_id);
-      console.log(user_id);
-      console.log(seats);
-      console.log("seats.length: "+seats.length);
-      
-
       //var result = 'timestamp: '+ timestamp+' booked_date: '+booked_date+' movie_id: '+movie_id
       //+' user_id: '+user_id+' seats: '+JSON.stringify(seats); 
 
@@ -181,49 +142,6 @@ app.post("/orders", function (request, response) {
       });
     });
 
-      
-/*
-      app.post("/ordersPoop", function (request, response) {
-
-        console.log("Post request recieved to /ordersPoop")
-        var timestamp = request.body.timestamp;
-        var booked_date = request.body.booked_date;
-        var movie_id = request.body.movie_id;
-        var user_id = request.body.user_id;
-        var seats = request.body.seats;
-    
-    
-          console.log(timestamp);
-          console.log(booked_date);
-          console.log(movie_id);
-          console.log(user_id);
-          console.log(seats);
-          console.log("seats.length: "+seats.length);
-          
-    
-          //var result = 'timestamp: '+ timestamp+' booked_date: '+booked_date+' movie_id: '+movie_id
-          //+' user_id: '+user_id+' seats: '+JSON.stringify(seats); 
-    
-            for(var i = 0; i < seats.length; i++) {
-                var obj = seats[i];
-                console.log("obj.seat: "+obj.seat);
-
-            }
-            
-    
-            response.end()
-          });
-
-          */
-
-          
-     
-
-//      response.send(result);
-
-  //    response.end();
-
-    
 
     app.get("/movie", function (request, response) {
 
@@ -239,66 +157,7 @@ app.post("/orders", function (request, response) {
     });
 
     
-/*
-app.post("/orders", function (request, response) {
 
-    console.log("Post request recieved to /orders")
-    var timestamp = request.body.timestamp;
-    var booked_date = request.body.booked_date;
-    var movie_id = request.body.movie_id;
-    var user_id = request.body.user_id;
-
-    
-    con.query("insert into orders(timestamp, booked_date, movie_id, user_id) values (?, ?, ?, ?)",
-    [timestamp, booked_date, movie_id,user_id], 
-    function (err, result, fields) {
-        if (err) throw err;
-        console.log(result);
-        console.log("the insert id is: "+ result.insertId);
-        response.send(result)
-      });
-      
-      console.log(timestamp);
-      console.log(booked_date);
-      console.log(movie_id);
-      console.log(user_id);
-
-
-      //response.end();
-
-    });
-
-    
-  
-
-    app.post('/dynamic', function (req, res) {
-        console.log("/dynamic post requested received with data: ");
-       var body = req.body;
-    
-       console.log("body seats length: "+body.seats.length);
-       for(var i=0 ; i<body.seats.length; i++){
-           console.log("body.seats[i]: "+body.seats[i]);
-       }
-        
-        res.end();
-     
-    });
-/*
-
-
-app.get("/seats", function (request, response) {
-    response.send("<h1>Seatst<h1>")
-    
-response.end();
-});
-
-app.get("/movies", function (request, response) {
-    response.send("<h1>movies<h1>")
-    
-response.end();
-});
-
-*/
 
 app.listen(SERVER_PORT, () => {
 	console.log("Server listening on port: " + SERVER_PORT);
